@@ -39,7 +39,7 @@ Visualization Manager:
       Enabled: true
       Frame Convention: XYZ -> ENU
       Name: AerialMapDisplay
-      Object URI: https://maps.wikimedia.org/osm-intl/{z}/{x}/{y}.png
+      Object URI: https://api.mapbox.com/styles/v1/mapbox/satellite-v9/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoiZm1yaWNvIiwiYSI6ImNqNGI1NTQ5bTA3aWMzM3A0a2dwY3l1dmEifQ.b6t7qner2BP8Ab5-JOkgPA
       Robot frame: map
       Topic: /gps/fix
       Value: true

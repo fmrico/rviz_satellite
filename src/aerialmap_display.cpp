@@ -42,7 +42,7 @@
 #define FRAME_CONVENTION_XYZ_NWU (2)  //  X -> North, Y -> West
 
 // Max number of adjacent blocks to support.
-static constexpr int kMaxBlocks = 8;
+static constexpr int kMaxBlocks = 60;
 // Max zoom level to support.
 static constexpr int kMaxZoom = 22;
 
@@ -305,7 +305,7 @@ AerialMapDisplay::navFixCallback(const sensor_msgs::NavSatFixConstPtr &msg) {
 void AerialMapDisplay::loadImagery() {
   //  cancel current imagery, if any
   loader_.reset();
-  
+
   if (!received_msg_) {
     //  no message received from publisher
     return;
@@ -340,14 +340,14 @@ void AerialMapDisplay::assembleScene() {
     return; //  nothing to update
   }
   dirty_ = false;
-  
+
   if (!loader_) {
     return; //  no tiles loaded, don't do anything
   }
-  
+
   //  get rid of old geometry, we will re-build this
   clearGeometry();
-  
+
   //  iterate over all tiles and create an object for each of them
   for (const TileLoader::MapTile &tile : loader_->tiles()) {
     // NOTE(gareth): We invert the y-axis so that positive y corresponds
@@ -507,7 +507,7 @@ void AerialMapDisplay::transformAerialMap() {
   pose.position.x = 0;
   pose.position.y = 0;
   pose.position.z = 0;
-  
+
   const std::string frame = frame_property_->getFrameStd();
   Ogre::Vector3 position{0, 0, 0};
   Ogre::Quaternion orientation{1, 0, 0, 0};
@@ -540,7 +540,7 @@ void AerialMapDisplay::transformAerialMap() {
   // force aerial imagery on ground
   position.z = 0;
   scene_node_->setPosition(position);
-  
+
   const int convention = frame_convention_property_->getOptionInt();
   if (convention == FRAME_CONVENTION_XYZ_ENU) {
     // ENU corresponds to our default drawing method
